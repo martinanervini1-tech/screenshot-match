@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1795272296004,
+      "tag": "0000_night_desk_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795272366841,
+      "tag": "0001_fictional_hotel_case",
+      "breakpoints": true
+    }
+  ]
+}
