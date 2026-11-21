@@ -1495,3 +1495,30 @@
   white-space: normal;
   display: block;
 }
+@media (max-width: 680px) {
+  .topbar-right {
+    gap: 6px;
+  }
+  .topbar-right > button[aria-label="Hotel policies"] {
+    display: none;
+  }
+  .topbar-right .profile-trigger {
+    padding-left: 4px;
+    padding-right: 4px;
+    gap: 4px;
+  }
+  .breadcrumb {
+    min-width: 0;
+  }
+  .breadcrumb > svg {
+    display: none;
+  }
+  .section-title {
+    min-width: 0;
+  }
+  .section-title h2 {
+    min-width: 0;
+  }
+}
+@media (max-width: 1150px) { .page-intro::before { left: -24px; right: -24px; } }
+@media (max-width: 680px) { .page-intro::before { left: -16px; right: -16px; } }

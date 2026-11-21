@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useState, type ReactNode } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import {
   Sun,
   ChartNoAxesCombined,
@@ -154,6 +154,18 @@ export function PageIntro({
   days?: number;
   onDays?: (n: number) => void;
 }) {
+  const [dateLabel, setDateLabel] = useState("Saturday, 21 November 2026");
+  useEffect(() => {
+    setDateLabel(
+      new Intl.DateTimeFormat("en-GB", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        timeZone: "Europe/Lisbon",
+      }).format(new Date()),
+    );
+  }, []);
   return (
     <div className="page-intro">
       <div>
@@ -164,7 +176,7 @@ export function PageIntro({
       <div className="intro-date">
         <span className="flex items-center gap-2">
           <Sun size={15} className="text-sunset" />
-          Saturday, 21 November 2026
+          {dateLabel}
         </span>
         {onDays && (
           <select

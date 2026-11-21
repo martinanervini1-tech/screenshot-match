@@ -1,8 +1,9 @@
 # Night Desk
-- [ ] Morning Desk, inquiry details and inline follow-ups
-- [ ] Analytics and housekeeping timeline
-- [ ] Searchable transcripts
-- [ ] Cloud tables, fictional seed data and live updates
-- [ ] Secure voice-agent insert endpoint
-- [ ] Staff access and profiles
-- [ ] Pricing tests and end-to-end checks
+
+- [x] Morning Desk, inquiry details and inline follow-ups
+- [x] Analytics and housekeeping timeline
+- [x] Searchable transcripts
+- [x] Cloud tables, fictional seed data and live updates
+- [x] Secure voice-agent insert endpoint
+- [x] Staff access and profiles
+- [x] Pricing tests and end-to-end checks

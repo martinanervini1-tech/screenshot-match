@@ -48,6 +48,19 @@ export function MorningDesk() {
   const bookings = desk.bookings.filter((i) => Date.parse(i.created_at) >= end - days * 86400000);
   const recent = desk.inquiries.filter((i) => Date.parse(i.created_at) >= end - 1.5 * 86400000);
   const tasks = prioritized(recent);
+  const overnightHours = [18, 20, 22, 0, 2, 4, 6].map((hour) => {
+    const count = recent.filter((i) => {
+      const callHour = Number(
+        new Intl.DateTimeFormat("en-GB", {
+          hour: "2-digit",
+          hourCycle: "h23",
+          timeZone: "Europe/Lisbon",
+        }).format(new Date(i.call_started_at || i.created_at)),
+      );
+      return callHour >= hour && callHour < hour + 2;
+    }).length;
+    return { hour, count };
+  });
   const waiting = recent.filter(
     (i) => i.availability_status === "to confirm" && ["new", "contacted"].includes(i.status),
   ).length;
@@ -109,7 +122,11 @@ export function MorningDesk() {
   ];
   async function status(i: Inquiry, s: string) {
     await desk.setStatus(i, s);
-    setSelected((prev) => (prev?.id === i.id ? { ...prev, status: s } : prev));
+    setSelected((prev) =>
+      prev?.id === i.id
+        ? { ...prev, status: s, ...(s === "booked" ? { availability_status: "confirmed" } : {}) }
+        : prev,
+    );
   }
   function exportRows() {
     const csv = [
@@ -232,6 +249,10 @@ export function MorningDesk() {
                     <Sparkles />
                     {i.win_back_action}
                   </p>
+                  <p className="task-line mt-1">
+                    <Clock />
+                    {i.next_step}
+                  </p>
                 </div>
                 <div className="task-actions">
                   <div>
@@ -310,13 +331,15 @@ export function MorningDesk() {
           </h3>
           <p>Guest conversations, from dusk to dawn.</p>
           <div className="overnight-chart">
-            {["18", "20", "22", "00", "02", "04", "06"].map((h, j) => (
-              <div className="hour-col" key={h}>
+            {overnightHours.map(({ hour, count }) => (
+              <div className="hour-col" key={hour} title={`${count} calls`}>
                 <div
                   className="hour-bar"
-                  style={{ height: `${[18, 32, 62, 45, 23, 12, 8][j]}px` }}
+                  style={{
+                    height: `${Math.max(4, (count / Math.max(...overnightHours.map((h) => h.count), 1)) * 62)}px`,
+                  }}
                 />
-                <span className="hour-label">{h}:00</span>
+                <span className="hour-label">{String(hour).padStart(2, "0")}:00</span>
               </div>
             ))}
           </div>
