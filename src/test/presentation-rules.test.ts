@@ -1,7 +1,21 @@
 import { describe, expect, it } from "vitest";
-import { caseGuests, commissionSaved, followUps, metrics, statusCounts, weeks } from "@/lib/night-desk/presentation-data";
+import { briefingDelay, caseGuests, commissionSaved, followUps, metrics, nightBriefing, statusCounts, weeks } from "@/lib/night-desk/presentation-data";
 
 describe("Casa Lisboa fictional presentation", () => {
+  it("waits 800ms before the automatic morning briefing", () => {
+    expect(briefingDelay).toBe(800);
+  });
+  it("shares nine calls, six follow-ups and €6,286 with the last-night strip", () => {
+    expect(nightBriefing.calls).toBe(9);
+    expect(nightBriefing.followUps).toHaveLength(6);
+    expect(nightBriefing.potentialValue).toBe(6286);
+    expect(nightBriefing.followUps.reduce((sum, guest) => sum + guest.value, 0)).toBe(nightBriefing.potentialValue);
+    expect(nightBriefing.resolved).toBe(3);
+  });
+  it("orders briefing follow-ups by potential value, highest first, preserving call IDs", () => {
+    expect(nightBriefing.followUps.map((guest) => guest.value)).toEqual([1964, 1338, 1075, 742, 711, 456]);
+    expect(nightBriefing.followUps.map((guest) => guest.id)).toEqual(["f4", "f5", "f1", "f2", "f3", "f6"]);
+  });
   it("has exactly 94 inquiries split 14 New, 13 Contacted, 41 Booked and 26 Lost", () => {
     expect(statusCounts).toEqual({ All: 94, New: 14, Contacted: 13, Booked: 41, Lost: 26 });
   });

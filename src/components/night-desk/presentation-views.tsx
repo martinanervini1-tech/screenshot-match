@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,10 +12,16 @@ function Section({ id, children, className = "" }: { id: string; children: React
 function GuestStatus({ status }: { status: CaseStatus }) {
   return <span className={`case-status case-status-${status.toLowerCase()}`}><span />{status}</span>;
 }
-function FollowUpList({ compact = false }: { compact?: boolean }) {
+function FollowUpList({ compact = false, selectedCall = "" }: { compact?: boolean; selectedCall?: string }) {
+  useEffect(() => {
+    if (!selectedCall) return;
+    const row = document.getElementById(`followup-${selectedCall}`);
+    row?.scrollIntoView({ block: "center" });
+    row?.focus({ preventScroll: true });
+  }, [selectedCall]);
   return <Section id="follow-ups"><div className="presentation-section-heading"><h2>Follow-ups for this morning <span>6</span></h2><p>{money(metrics.followUpValue)} total</p></div>
     <div className={`presentation-followups ${compact ? "is-compact" : ""}`}>
-      {followUps.slice(0, compact ? 3 : 6).map((guest, i) => <motion.article layoutId={`followup-${guest.id}`} className="presentation-followup" key={guest.id}>
+      {followUps.slice(0, compact ? 3 : 6).map((guest, i) => <motion.article layoutId={`followup-${guest.id}`} id={`followup-${guest.id}`} tabIndex={-1} data-selected={selectedCall === guest.id} className="presentation-followup" key={guest.id}>
         <span className="case-number">{String(i + 1).padStart(2, "0")}</span>
         <div className="case-followup-info"><div className="case-followup-name"><h3>{guest.name}</h3><GuestStatus status={guest.status} /></div><p className="case-meta">{guest.country} · {guest.room} · {guest.nights} nights · <span className="case-dates">{guest.dates}</span></p><p className="case-note">{guest.note}</p></div>
         <div className="case-followup-value"><strong>{money(guest.value)}</strong><span><Clock size={13} />Call by {guest.deadline}</span></div>
@@ -38,7 +44,7 @@ function InquirySummary() {
 export function OverviewPresentation() {
   return <><div className="presentation-overview-grid"><FollowUpList compact /><InquirySummary /></div><Section id="inquiries"><div className="presentation-section-heading"><h2>All inquiries</h2><p>94 total · Recent conversations</p></div><InquiryTable guests={caseGuests.slice(0, 5)} /></Section></>;
 }
-export function FollowUpsPresentation() { return <FollowUpList />; }
+export function FollowUpsPresentation({ selectedCall = "" }: { selectedCall?: string }) { return <FollowUpList selectedCall={selectedCall} />; }
 export function InquiriesPresentation() {
   const [filter, setFilter] = useState<"All" | CaseStatus>("All");
   const filtered = filter === "All" ? caseGuests : caseGuests.filter((g) => g.status === filter);

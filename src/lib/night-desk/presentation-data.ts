@@ -101,3 +101,21 @@ export const metrics = {
 };
 export const commissionSaved = Math.round(metrics.revenue * 0.18);
 export const money = (value: number) => `€${value.toLocaleString("en-GB")}`;
+
+// Fictional call context enriches the existing follow-ups without changing their quotes.
+const callContext = [
+  { time: "23:14", intent: "Booking intent" },
+  { time: "00:37", intent: "Callback requested" },
+  { time: "01:52", intent: "Availability" },
+  { time: "02:20", intent: "Booking intent" },
+  { time: "05:48", intent: "Price question" },
+  { time: "06:31", intent: "Availability" },
+] as const;
+export const nightBriefing = {
+  calls: 9,
+  followUps: followUps.map((guest, index) => ({ ...guest, ...(callContext[index] ?? callContext[0]) })).sort((a, b) => b.value - a.value),
+  potentialValue: metrics.followUpValue,
+  resolved: 9 - followUps.length,
+};
+export const briefingSessionKey = "casa-lisboa-night-briefing-seen";
+export const briefingDelay = 800;

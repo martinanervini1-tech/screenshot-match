@@ -1,5 +1,20 @@
 # Night Desk
 
+## Night Desk briefing
+- [x] Add session-only morning briefing and synchronized last-night strip
+- [x] Link value-sorted follow-ups to the existing phone-icon view
+- [x] Verify dismissal, session behavior, motion preferences and mobile sheet
+
+## Disciplined Overview KPIs
+- [x] Limit the four summary KPIs to Overview and apply one blue-to-yellow / three white-to-blue interactions
+- [x] Preserve page-specific content and verify all four views
+
+## Connected briefing inbox
+- [x] Place a header bell with shared last-night calls (no demo notification page existed)
+- [x] Animate briefing dismissal into the bell, respecting reduced motion
+- [x] Share open/handled state, badge counts, totals and notification tabs
+- [x] Verify dismissals, inbox actions and mobile layouts
+
 - [x] Morning Desk, inquiry details and inline follow-ups
 - [x] Analytics and housekeeping timeline
 - [x] Searchable transcripts

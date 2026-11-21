@@ -36,6 +36,8 @@ use the editor.
 - Staff profile fields and access roles must remain separate, preventing profile edits from escalating privileges.
 - Seed fictional rows through migrations; use Query for desk reads and invalidate from one mounted Realtime subscription.
 - Keep the fixed read-only presentation fixture separate from operational pricing and Cloud records; presentation quotes must never change intake calculations or guest data.
-- Mount the presentation shell in the root around the four leaf views so shared KPIs, navigation and reporting period remain stationary during view changes; use TanStack links and Framer Motion instead of Next.js-only sidebar imports.
+- Mount the presentation shell in the root around the four leaf views so navigation and reporting period remain stationary during view changes; conditionally render overview summaries and use TanStack links and Framer Motion.
+- Keep notification handled state session-local and separate from Cloud guest statuses; modal, inbox and strip derive counts from the same presentation call fixture.
 - Define shared visual roles and interaction states in global CSS and Button variants; reuse TilePattern for decorative panel layers with solid readable content, keeping visual refinements independent of data and access logic.
 - Keep KPI navigation as real TanStack links using the shared Button variant, and chart tooltips keyboard-focusable; this adds presentation interaction without modifying records or calculations.
+- Share the last-night briefing fixture with its strip and link call IDs to the existing follow-up view; this keeps presentation totals consistent without accessing operational guest data.
