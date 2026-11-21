@@ -35,3 +35,5 @@ use the editor.
 - Only explicitly approved staff roles may access or change real guest records; public access is limited to fictional case rows.
 - Staff profile fields and access roles must remain separate, preventing profile edits from escalating privileges.
 - Seed fictional rows through migrations; use Query for desk reads and invalidate from one mounted Realtime subscription.
+- Keep the fixed read-only presentation fixture separate from operational pricing and Cloud records; presentation quotes must never change intake calculations or guest data.
+- Mount the presentation shell in the root around the four leaf views so shared KPIs, navigation and reporting period remain stationary during view changes; use TanStack links and Framer Motion instead of Next.js-only sidebar imports.

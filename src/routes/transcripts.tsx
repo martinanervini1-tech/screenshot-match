@@ -1,8 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { demoDeskOptions } from "@/lib/night-desk/queries";
-import { TranscriptsPage } from "@/components/night-desk/transcripts";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 export const Route = createFileRoute("/transcripts")({
-  loader: ({ context }) => context.queryClient.ensureQueryData(demoDeskOptions),
+  beforeLoad: () => { throw redirect({ to: "/inquiries" }); },
   head: () => ({
     meta: [
       { title: "Guest conversations | Casa Lisboa" },
@@ -19,5 +17,4 @@ export const Route = createFileRoute("/transcripts")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: TranscriptsPage,
 });

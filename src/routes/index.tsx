@@ -1,17 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { demoDeskOptions } from "@/lib/night-desk/queries";
-import { MorningDesk } from "@/components/night-desk/morning";
+import { OverviewPresentation } from "@/components/night-desk/presentation-views";
 export const Route = createFileRoute("/")({
-  loader: ({ context }) => context.queryClient.ensureQueryData(demoDeskOptions),
   head: () => ({
     meta: [
-      { title: "Morning Desk | Casa Lisboa" },
+      { title: "Overview | Casa Lisboa Night Desk" },
       {
         name: "description",
         content:
           "Casa Lisboa’s overnight guest inquiries, priority follow-ups, and direct-booking opportunities.",
       },
-      { property: "og:title", content: "Morning Desk | Casa Lisboa" },
+      { property: "og:title", content: "Overview | Casa Lisboa Night Desk" },
       {
         property: "og:description",
         content: "A thoughtful start to the day: guests, stays, and next steps at Casa Lisboa.",
@@ -20,5 +18,5 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: MorningDesk,
+  component: OverviewPresentation,
 });

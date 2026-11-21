@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
+import { Route as FollowUpsRouteImport } from './routes/follow-ups'
+import { Route as InquiriesRouteImport } from './routes/inquiries'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as TranscriptsRouteImport } from './routes/transcripts'
 import { Route as ApiPublicInquiriesRouteImport } from './routes/api/public/inquiries'
@@ -23,6 +25,16 @@ const IndexRoute = IndexRouteImport.update({
 const AnalyticsRoute = AnalyticsRouteImport.update({
   id: '/analytics',
   path: '/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FollowUpsRoute = FollowUpsRouteImport.update({
+  id: '/follow-ups',
+  path: '/follow-ups',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InquiriesRoute = InquiriesRouteImport.update({
+  id: '/inquiries',
+  path: '/inquiries',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
@@ -44,6 +56,8 @@ const ApiPublicInquiriesRoute = ApiPublicInquiriesRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/follow-ups': typeof FollowUpsRoute
+  '/inquiries': typeof InquiriesRoute
   '/reset-password': typeof ResetPasswordRoute
   '/transcripts': typeof TranscriptsRoute
   '/api/public/inquiries': typeof ApiPublicInquiriesRoute
@@ -51,6 +65,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/follow-ups': typeof FollowUpsRoute
+  '/inquiries': typeof InquiriesRoute
   '/reset-password': typeof ResetPasswordRoute
   '/transcripts': typeof TranscriptsRoute
   '/api/public/inquiries': typeof ApiPublicInquiriesRoute
@@ -59,6 +75,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/follow-ups': typeof FollowUpsRoute
+  '/inquiries': typeof InquiriesRoute
   '/reset-password': typeof ResetPasswordRoute
   '/transcripts': typeof TranscriptsRoute
   '/api/public/inquiries': typeof ApiPublicInquiriesRoute
@@ -68,6 +86,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/analytics'
+    | '/follow-ups'
+    | '/inquiries'
     | '/reset-password'
     | '/transcripts'
     | '/api/public/inquiries'
@@ -75,6 +95,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/analytics'
+    | '/follow-ups'
+    | '/inquiries'
     | '/reset-password'
     | '/transcripts'
     | '/api/public/inquiries'
@@ -82,6 +104,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/analytics'
+    | '/follow-ups'
+    | '/inquiries'
     | '/reset-password'
     | '/transcripts'
     | '/api/public/inquiries'
@@ -90,6 +114,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AnalyticsRoute: typeof AnalyticsRoute
+  FollowUpsRoute: typeof FollowUpsRoute
+  InquiriesRoute: typeof InquiriesRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TranscriptsRoute: typeof TranscriptsRoute
   ApiPublicInquiriesRoute: typeof ApiPublicInquiriesRoute
@@ -109,6 +135,20 @@ declare module '@tanstack/react-router' {
       path: '/analytics'
       fullPath: '/analytics'
       preLoaderRoute: typeof AnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/follow-ups': {
+      id: '/follow-ups'
+      path: '/follow-ups'
+      fullPath: '/follow-ups'
+      preLoaderRoute: typeof FollowUpsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inquiries': {
+      id: '/inquiries'
+      path: '/inquiries'
+      fullPath: '/inquiries'
+      preLoaderRoute: typeof InquiriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reset-password': {
@@ -138,6 +178,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnalyticsRoute: AnalyticsRoute,
+  FollowUpsRoute: FollowUpsRoute,
+  InquiriesRoute: InquiriesRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TranscriptsRoute: TranscriptsRoute,
   ApiPublicInquiriesRoute: ApiPublicInquiriesRoute,

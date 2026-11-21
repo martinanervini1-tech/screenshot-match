@@ -1,15 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { demoDeskOptions } from "@/lib/night-desk/queries";
-import { AnalyticsPage } from "@/components/night-desk/analytics";
+import { AnalyticsPresentation } from "@/components/night-desk/presentation-views";
 export const Route = createFileRoute("/analytics")({
-  loader: ({ context }) => context.queryClient.ensureQueryData(demoDeskOptions),
   head: () => ({
     meta: [
       { title: "Hotel analytics | Casa Lisboa" },
       {
         name: "description",
         content:
-          "Track reservation channels, concierge revenue, guest preferences, and housekeeping at Casa Lisboa.",
+          "Casa Lisboa’s last 30 days: weekly calls, direct bookings, concierge revenue and inquiry outcomes.",
       },
       { property: "og:title", content: "Hotel analytics | Casa Lisboa" },
       {
@@ -21,5 +19,5 @@ export const Route = createFileRoute("/analytics")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: AnalyticsPage,
+  component: AnalyticsPresentation,
 });

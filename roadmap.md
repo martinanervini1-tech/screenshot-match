@@ -7,3 +7,9 @@
 - [x] Secure voice-agent insert endpoint
 - [x] Staff access and profiles
 - [x] Pricing tests and end-to-end checks
+
+## Presentation refinement
+- [x] Four read-only views and stationary animated navigation
+- [x] Consistent 30-day figures, six follow-ups and weekly trends
+- [x] Refined typography, azulejo accents and width-fitting tables
+- [x] Rule tests and desktop/mobile presentation checks

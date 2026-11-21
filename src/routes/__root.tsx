@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -13,6 +14,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { StaffProvider } from "@/components/night-desk/session";
+import { PresentationShell } from "@/components/night-desk/presentation-shell";
 import { Toaster } from "sonner";
 
 function NotFoundComponent() {
@@ -95,7 +97,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;450;500;550;600;650;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap",
       },
       {
         rel: "stylesheet",
@@ -126,14 +128,13 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const { pathname } = useLocation();
+  const isPresentation = ["/", "/follow-ups", "/inquiries", "/analytics"].includes(pathname);
 
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <StaffProvider>
-        <Outlet />
-        <Toaster richColors position="bottom-right" />
-      </StaffProvider>
+      {isPresentation ? <PresentationShell><Outlet /></PresentationShell> : <StaffProvider><Outlet /><Toaster richColors position="bottom-right" /></StaffProvider>}
     </QueryClientProvider>
   );
 }
