@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Night Desk architecture
+- Keep pricing and hotel operational calculations in pure shared modules with concrete rule tests, so ingestion and UI quotes agree.
+- Keep external inquiry intake in a signed public server route; never trust supplied monetary totals or demo flags.
+- Only explicitly approved staff roles may access or change real guest records; public access is limited to fictional case rows.
+- Staff profile fields and access roles must remain separate, preventing profile edits from escalating privileges.
+- Seed fictional rows through migrations; use Query for desk reads and invalidate from one mounted Realtime subscription.

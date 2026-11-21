@@ -16,6 +16,9 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        sunset: "bg-sunset text-navy hover:bg-gold font-semibold",
+        sidebar: "text-tile-blue hover:bg-primary/40 hover:text-primary-foreground h-11 px-3",
+        conversation: "block whitespace-normal text-left hover:border-primary",
       },
       size: {
         default: "h-9 px-4 py-2",
