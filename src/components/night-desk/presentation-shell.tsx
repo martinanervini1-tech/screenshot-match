@@ -8,6 +8,7 @@ import { briefingDelay, briefingSessionKey, commissionSaved, metrics, money, nig
 import { NightBriefing } from "./night-briefing";
 import { NotificationInboxPopover } from "./notification-inbox-popover";
 import { briefingSummary, handledSessionKey, parseHandledCalls, setCallHandled } from "@/lib/night-desk/briefing-state";
+import { ThemeSelector } from "./theme-selector";
 
 const views = [
   { label: "Overview", to: "/", icon: LayoutDashboard },
@@ -95,7 +96,7 @@ export function PresentationShell({ children }: { children: ReactNode }) {
         </motion.aside>
         <header className="presentation-header">
           <div className="presentation-wordmark">Casa Lisboa<span>Night Desk</span></div>
-          <div className="presentation-header-actions"><NotificationInboxPopover bellRef={bellRef} receive={receive} handledIds={handledIds} onHandled={handleCall} open={inboxOpen} onOpenChange={setInboxOpen} onBriefing={() => setBriefingOpen(true)} /><div className="presentation-period">Last 30 days<span>23 Oct–21 Nov 2026</span></div></div>
+          <div className="presentation-header-actions"><ThemeSelector /><NotificationInboxPopover bellRef={bellRef} receive={receive} handledIds={handledIds} onHandled={handleCall} open={inboxOpen} onOpenChange={setInboxOpen} onBriefing={() => setBriefingOpen(true)} /><div className="presentation-period">Last 30 days<span>23 Oct–21 Nov 2026</span></div></div>
         </header>
         <main className="presentation-main">
           <div className="presentation-title-row">

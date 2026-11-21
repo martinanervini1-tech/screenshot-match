@@ -16,6 +16,8 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { StaffProvider } from "@/components/night-desk/session";
 import { PresentationShell } from "@/components/night-desk/presentation-shell";
 import { Toaster } from "sonner";
+import { ThemeProvider } from "@/components/night-desk/theme-provider";
+import { themeInitScript } from "@/lib/night-desk/theme";
 
 function NotFoundComponent() {
   return (
@@ -114,8 +116,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <HeadContent />
       </head>
       <body>
@@ -133,8 +136,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       {isPresentation ? <PresentationShell><Outlet /></PresentationShell> : <StaffProvider><Outlet /><Toaster richColors position="bottom-right" /></StaffProvider>}
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { useStaff } from "./session";
 import { initials } from "@/lib/night-desk/types";
 import { Azulejo, TilePattern, TileStrip, LisbonSketch } from "./tile";
+import { ThemeSelector } from "./theme-selector";
 export function DeskShell({
   page,
   children,
@@ -99,6 +100,7 @@ export function DeskShell({
           <strong>{page}</strong>
         </div>
         <div className="topbar-right">
+          <ThemeSelector />
           <span className="live-pill">
             <span className="live-dot" />
             {staff ? "Desk is live" : "Voice concierge ready"}

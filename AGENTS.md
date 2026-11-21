@@ -30,6 +30,7 @@ use the editor.
 <!-- LOVABLE:END -->
 
 ## Night Desk architecture
+- Apply themes through a root provider and global semantic tokens, with a pre-paint preference script; this preserves Light Mode and avoids theme flashes without changing data or access logic.
 - Keep pricing and hotel operational calculations in pure shared modules with concrete rule tests, so ingestion and UI quotes agree.
 - Keep external inquiry intake in a signed public server route; never trust supplied monetary totals or demo flags.
 - Only explicitly approved staff roles may access or change real guest records; public access is limited to fictional case rows.

@@ -1,5 +1,11 @@
 # Night Desk
 
+## Premium Night Mode
+- [x] Add complementary dark tokens without changing Light Mode
+- [x] Add persistent Light/Night/System selection and prevent loading flashes
+- [x] Adapt navigation, KPIs, azulejos, charts, menus and dialogs
+- [x] Verify themes, persistence, OS changes and desktop/mobile layouts
+
 ## Night Desk briefing
 - [x] Add session-only morning briefing and synchronized last-night strip
 - [x] Link value-sorted follow-ups to the existing phone-icon view
