@@ -23,10 +23,10 @@ function FollowUpList({ compact = false }: { compact?: boolean }) {
   </Section>;
 }
 function InquiryTable({ guests }: { guests: CaseGuest[] }) {
-  return <table className="presentation-table"><colgroup><col className="case-col-guest"/><col className="case-col-stay"/><col className="case-col-room"/><col className="case-col-value"/><col className="case-col-status"/></colgroup>
+  return <div className="presentation-table-scroll" role="region" aria-label="Guest inquiries" tabIndex={0}><table className="presentation-table"><colgroup><col className="case-col-guest"/><col className="case-col-stay"/><col className="case-col-room"/><col className="case-col-value"/><col className="case-col-status"/></colgroup>
     <thead><tr><th>Guest</th><th>Stay</th><th>Room</th><th className="case-value-cell">Value</th><th>Status</th></tr></thead>
     <tbody>{guests.map((guest) => <tr key={guest.id}><td><strong>{guest.name}</strong><small>{guest.country}</small></td><td><span className="case-dates">{guest.dates}</span><small>{guest.nights} nights</small></td><td>{guest.room}</td><td className="case-value-cell">{money(guest.value)}</td><td><GuestStatus status={guest.status} /></td></tr>)}</tbody>
-  </table>;
+  </table></div>;
 }
 function InquirySummary() {
   return <Section id="inquiry-summary"><div className="presentation-section-heading"><h2>Inquiry outcomes</h2><p>94 total</p></div><div className="presentation-outcomes">
@@ -55,7 +55,7 @@ export function InquiriesPresentation() {
 }
 function WeeklyChart({ field, title, positive = false }: { field: "calls" | "bookings" | "revenue"; title: string; positive?: boolean }) {
   const max = Math.max(...weeks.map((w) => w[field]));
-  return <div className={`presentation-weekly-chart ${positive ? "is-positive" : ""}`}><h3>{title}</h3><div className="presentation-bars">{weeks.map((week) => <div className="presentation-bar-column" key={week.week}><strong>{field === "revenue" ? money(week[field]) : week[field]}</strong><div className="presentation-bar-space"><div className="presentation-bar" style={{ height: `${week[field] / max * 100}%` }} /></div><span>{week.week}</span></div>)}</div></div>;
+  return <div className={`presentation-weekly-chart ${positive ? "is-positive" : ""}`}><h3>{title}</h3><div className="presentation-bars" role="img" aria-label={`${title}: ${weeks.map((week) => `${week.week} ${field === "revenue" ? money(week[field]) : week[field]}`).join(", ")}`}>{weeks.map((week) => <div className="presentation-bar-column" key={week.week} title={`${week.week} · ${title}: ${field === "revenue" ? money(week[field]) : week[field]}`}><strong>{field === "revenue" ? money(week[field]) : week[field]}</strong><div className="presentation-bar-space"><div className="presentation-bar" style={{ height: `${week[field] / max * 100}%` }} /></div><span>{week.week}</span></div>)}</div></div>;
 }
 export function AnalyticsPresentation() {
   return <><Section id="weekly-trend"><div className="presentation-section-heading"><h2>Weekly trend</h2><p>Last 30 days</p></div><div className="presentation-chart-grid"><WeeklyChart field="calls" title="Calls"/><WeeklyChart field="bookings" title="Bookings" positive/><WeeklyChart field="revenue" title="Revenue" positive/></div>

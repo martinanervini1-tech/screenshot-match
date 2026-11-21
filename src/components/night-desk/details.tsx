@@ -1,5 +1,6 @@
 import { Sheet, SheetContent, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { Azulejo, TilePattern } from "./tile";
 import { Phone, Check, X, Mail, Clock, Sparkles } from "lucide-react";
 import { priceStay, rooms, euro, type Room } from "@/lib/night-desk/pricing";
 import {
@@ -89,6 +90,9 @@ export function InquiryDetails({
       }}
     >
       <SheetContent className="detail-sheet">
+        <TilePattern className="detail-panel-pattern" />
+        <div className="detail-panel-brand"><Azulejo /><span>Casa Lisboa <small>Night Desk</small></span></div>
+        <div className="detail-panel-content">
         <div className="eyebrow">Guest inquiry · {shortDate(inquiry.created_at)}</div>
         <SheetTitle>{inquiry.guest_name}</SheetTitle>
         <SheetDescription>
@@ -227,6 +231,7 @@ export function InquiryDetails({
             · {inquiry.language}
           </p>
           <Transcript inquiry={inquiry} />
+        </div>
         </div>
       </SheetContent>
     </Sheet>

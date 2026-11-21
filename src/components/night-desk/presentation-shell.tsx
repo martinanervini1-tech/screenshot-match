@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "framer-motion";
 import { LayoutDashboard, PhoneIncoming, List, ChartNoAxesCombined, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Azulejo } from "./tile";
+import { Azulejo, TilePattern } from "./tile";
 import { commissionSaved, metrics, money } from "@/lib/night-desk/presentation-data";
 
 const views = [
@@ -46,7 +46,8 @@ export function PresentationShell({ children }: { children: ReactNode }) {
   return (
     <LayoutGroup id="casa-presentation">
       <div className="presentation">
-        <motion.aside className="presentation-sidebar" aria-label="Main navigation" animate={{ width: open ? 208 : 56 }} transition={{ duration: reduced ? 0 : 0.2, ease: "easeOut" }} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} onFocus={() => setOpen(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }}>
+        <motion.aside className="presentation-sidebar" data-expanded={open} aria-label="Main navigation" animate={{ width: open ? 240 : 56 }} transition={{ duration: reduced ? 0 : 0.25, ease: "easeOut" }} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} onFocus={() => setOpen(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }} onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }}>
+          <TilePattern className="presentation-sidebar-pattern" />
           <div className="presentation-sidebar-brand"><Azulejo /><motion.span animate={{ opacity: open ? 1 : 0 }} transition={{ duration: reduced ? 0 : 0.2 }}>Casa Lisboa</motion.span></div>
           <nav>
             {views.map((item) => (
@@ -58,7 +59,7 @@ export function PresentationShell({ children }: { children: ReactNode }) {
               </Button>
             ))}
           </nav>
-          <div className="presentation-sidebar-tile"><Azulejo /></div>
+          <div className="presentation-sidebar-tile"><Azulejo /><motion.div animate={{ opacity: open ? 1 : 0 }} transition={{ duration }}><strong>Night Desk</strong><span>Lisbon · 24 rooms</span></motion.div></div>
         </motion.aside>
         <header className="presentation-header">
           <div className="presentation-wordmark">Casa Lisboa<span>Night Desk</span></div>

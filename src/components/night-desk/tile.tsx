@@ -22,12 +22,14 @@ export function TilePattern({ className = "" }: { className?: string }) {
   return (
     <svg className={className} width="100%" height="100%" aria-hidden="true">
       <defs>
-        <pattern id={id} width="70" height="70" patternUnits="userSpaceOnUse">
-          <path d="M35 0L70 35L35 70L0 35Z M0 0H70V70H0Z" stroke="currentColor" fill="none" />
-          <path
-            d="M35 5Q18 25 35 31Q52 25 35 5 M65 35Q45 18 39 35Q45 52 65 35 M35 65Q52 45 35 39Q18 45 35 65 M5 35Q25 52 31 35Q25 18 5 35"
-            fill="currentColor"
-          />
+        <pattern id={id} width="80" height="80" patternUnits="userSpaceOnUse">
+          <g stroke="currentColor" strokeWidth="0.8" fill="none">
+            <path d="M0 0H80V80H0Z M40 0L80 40L40 80L0 40Z M40 8L72 40L40 72L8 40Z" />
+            <path d="M40 17C28 28 28 34 40 40C52 34 52 28 40 17Z M63 40C52 28 46 28 40 40C46 52 52 52 63 40Z M40 63C52 52 52 46 40 40C28 46 28 52 40 63Z M17 40C28 52 34 52 40 40C34 28 28 28 17 40Z" />
+            <path d="M0 16A16 16 0 0 0 16 0 M64 0A16 16 0 0 0 80 16 M80 64A16 16 0 0 0 64 80 M16 80A16 16 0 0 0 0 64 M0 8A8 8 0 0 0 8 0 M72 0A8 8 0 0 0 80 8 M80 72A8 8 0 0 0 72 80 M8 80A8 8 0 0 0 0 72" />
+            <path d="M40 34L46 40L40 46L34 40Z" />
+          </g>
+          <g fill="currentColor"><circle cx="40" cy="40" r="2"/><circle cx="20" cy="20" r="1.2"/><circle cx="60" cy="20" r="1.2"/><circle cx="20" cy="60" r="1.2"/><circle cx="60" cy="60" r="1.2"/></g>
         </pattern>
       </defs>
       <rect width="100%" height="100%" fill={`url(#${id})`} />
