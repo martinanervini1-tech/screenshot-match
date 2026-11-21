@@ -18,3 +18,7 @@
 - [x] Shared palette, typography, controls and dashboard hierarchy
 - [x] Signature azulejo navigation and existing guest panel styling
 - [x] Verify existing views, filters, keyboard access and mobile/tablet layouts
+
+## Revised Lisbon color system
+- [x] Replace green-led styling with azulejo blue and warm sunset neutrals
+- [x] Verify unchanged navigation, filters and desktop/mobile layouts
