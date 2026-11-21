@@ -184,7 +184,7 @@ export function InquiryDetails({
               : ""}
           </p>
           <div className="detail-actions">
-            <Button disabled={saving === inquiry.id} onClick={() => onStatus(inquiry, "contacted")}>
+            <Button variant="animated" disabled={saving === inquiry.id} onClick={() => onStatus(inquiry, "contacted")}>
               <Phone />
               Mark contacted
             </Button>

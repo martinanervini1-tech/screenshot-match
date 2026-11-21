@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "framer-motion";
-import { LayoutDashboard, PhoneIncoming, List, ChartNoAxesCombined, ChevronLeft, ChevronRight } from "lucide-react";
+import { LayoutDashboard, PhoneIncoming, List, ChartNoAxesCombined, ChevronLeft, ChevronRight, ArrowUpRight, Phone, ArrowDownToLine, ShieldCheck, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Azulejo, TilePattern } from "./tile";
 import { commissionSaved, metrics, money } from "@/lib/night-desk/presentation-data";
@@ -20,7 +20,7 @@ export function PresentationShell({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const current = Math.max(0, views.findIndex((view) => view.to === pathname));
   const view = views[current] ?? views[0];
-  const duration = reduced ? 0 : 0.25;
+  const duration = reduced ? 0 : 0.3;
   function move(direction: number) {
     const next = views[(current + direction + views.length) % views.length];
     if (next) void navigate({ to: next.to });
@@ -38,23 +38,24 @@ export function PresentationShell({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [current, navigate]);
   const kpis = [
-    { label: "Calls handled", value: String(metrics.calls), note: "76% after hours", meaning: "neutral" },
-    { label: "Revenue booked by concierge", value: money(metrics.revenue), note: "41 direct bookings", meaning: "positive" },
-    { label: "Commission saved", value: money(commissionSaved), note: "vs. 18% OTA commission", meaning: "positive" },
-    { label: "Revenue at risk", value: money(metrics.risk), note: "27 open inquiries (New + Contacted)", meaning: "risk" },
-  ];
+    { label: "Calls handled", value: String(metrics.calls), note: "76% after hours", meaning: "calls", to: "/inquiries", icon: Phone, destination: "All inquiries" },
+    { label: "Revenue booked by concierge", value: money(metrics.revenue), note: "41 direct bookings", meaning: "revenue", to: "/analytics", icon: ArrowDownToLine, destination: "Weekly revenue" },
+    { label: "Commission saved", value: money(commissionSaved), note: "vs. 18% OTA commission", meaning: "saved", to: "/analytics", icon: ShieldCheck, destination: "Booking analytics" },
+    { label: "Revenue at risk", value: money(metrics.risk), note: "27 open inquiries (New + Contacted)", meaning: "risk", to: "/inquiries", icon: Clock, destination: "Inquiry outcomes" },
+  ] as const;
   return (
     <LayoutGroup id="casa-presentation">
       <div className="presentation">
-        <motion.aside className="presentation-sidebar" data-expanded={open} aria-label="Main navigation" animate={{ width: open ? 240 : 56 }} transition={{ duration: reduced ? 0 : 0.25, ease: "easeOut" }} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} onFocus={() => setOpen(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }} onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }}>
+        <div className="presentation-nav-backdrop" data-visible={open} aria-hidden="true" />
+        <motion.aside className="presentation-sidebar" data-expanded={open} aria-label="Main navigation" animate={{ width: open ? 240 : 56 }} transition={{ duration: reduced ? 0 : 0.38, ease: [0.22, 1, 0.36, 1] }} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} onFocus={() => setOpen(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }} onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }}>
           <TilePattern className="presentation-sidebar-pattern" />
           <div className="presentation-sidebar-brand"><Azulejo /><motion.span animate={{ opacity: open ? 1 : 0 }} transition={{ duration: reduced ? 0 : 0.2 }}>Casa Lisboa</motion.span></div>
           <nav>
-            {views.map((item) => (
+            {views.map((item, index) => (
               <Button asChild variant="ghost" className={`presentation-nav-item ${item.to === pathname ? "is-current" : ""}`} key={item.to}>
                 <Link to={item.to} aria-label={item.label} title={open ? undefined : item.label} aria-current={item.to === pathname ? "page" : undefined}>
                   {item.to === pathname && <motion.span className="presentation-nav-indicator" layoutId="nav-indicator" transition={{ duration }} />}
-                  <item.icon /><motion.span className="presentation-nav-label" animate={{ opacity: open ? 1 : 0 }} transition={{ duration: reduced ? 0 : 0.2 }}>{item.label}</motion.span>
+                  <item.icon /><motion.span className="presentation-nav-label" animate={{ opacity: open ? 1 : 0, x: open ? 0 : -8 }} transition={{ duration: reduced ? 0 : 0.25, delay: reduced || !open ? 0 : 0.06 + index * 0.035 }}>{item.label}</motion.span><ArrowUpRight className="presentation-nav-arrow" />
                 </Link>
               </Button>
             ))}
@@ -73,9 +74,15 @@ export function PresentationShell({ children }: { children: ReactNode }) {
           <div className="presentation-kpis">
             {kpis.map((kpi, index) => (
               <motion.article layoutId={`kpi-${index}`} className={`presentation-kpi ${kpi.meaning}`} key={kpi.label} transition={{ duration, ease: "easeOut" }}>
-                <motion.div key={`${pathname}-${kpi.label}`} initial={{ opacity: reduced ? 1 : 0.4 }} animate={{ opacity: 1 }} transition={{ duration, ease: "easeOut" }}>
-                  <h2>{kpi.label}</h2><p className="presentation-kpi-value">{kpi.value}</p><p className="presentation-kpi-note">{kpi.note}</p>
-                </motion.div>
+                <Button variant="kpi" asChild>
+                  <Link to={kpi.to} aria-label={`${kpi.label}: ${kpi.value}. ${kpi.note}. View ${kpi.destination.toLowerCase()}`}>
+                    <span className="presentation-kpi-label"><kpi.icon /><span>{kpi.label}</span></span>
+                    <span className="presentation-kpi-value">{kpi.value}</span>
+                    <span className="presentation-kpi-note">{kpi.note}</span>
+                    <ArrowUpRight className="presentation-kpi-arrow" />
+                    {kpi.meaning === "revenue" && <span className="presentation-kpi-destination">{kpi.destination}<ArrowUpRight /></span>}
+                  </Link>
+                </Button>
               </motion.article>
             ))}
           </div>

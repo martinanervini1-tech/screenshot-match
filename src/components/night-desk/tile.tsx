@@ -22,14 +22,18 @@ export function TilePattern({ className = "" }: { className?: string }) {
   return (
     <svg className={className} width="100%" height="100%" aria-hidden="true">
       <defs>
-        <pattern id={id} width="80" height="80" patternUnits="userSpaceOnUse">
-          <g stroke="currentColor" strokeWidth="0.8" fill="none">
-            <path d="M0 0H80V80H0Z M40 0L80 40L40 80L0 40Z M40 8L72 40L40 72L8 40Z" />
-            <path d="M40 17C28 28 28 34 40 40C52 34 52 28 40 17Z M63 40C52 28 46 28 40 40C46 52 52 52 63 40Z M40 63C52 52 52 46 40 40C28 46 28 52 40 63Z M17 40C28 52 34 52 40 40C34 28 28 28 17 40Z" />
-            <path d="M0 16A16 16 0 0 0 16 0 M64 0A16 16 0 0 0 80 16 M80 64A16 16 0 0 0 64 80 M16 80A16 16 0 0 0 0 64 M0 8A8 8 0 0 0 8 0 M72 0A8 8 0 0 0 80 8 M80 72A8 8 0 0 0 72 80 M8 80A8 8 0 0 0 0 72" />
-            <path d="M40 34L46 40L40 46L34 40Z" />
+        <pattern id={id} width="96" height="96" patternUnits="userSpaceOnUse">
+          <g stroke="currentColor" strokeWidth="1" fill="none">
+            <path d="M0 0H96V96H0Z M48 0L96 48L48 96L0 48Z" />
+            <path d="M48 12L84 48L48 84L12 48Z M48 24L72 48L48 72L24 48Z" />
+            <path d="M0 24A24 24 0 0 0 24 0 M72 0A24 24 0 0 0 96 24 M96 72A24 24 0 0 0 72 96 M24 96A24 24 0 0 0 0 72" />
+            <path d="M0 16A16 16 0 0 0 16 0 M80 0A16 16 0 0 0 96 16 M96 80A16 16 0 0 0 80 96 M16 96A16 16 0 0 0 0 80" />
           </g>
-          <g fill="currentColor"><circle cx="40" cy="40" r="2"/><circle cx="20" cy="20" r="1.2"/><circle cx="60" cy="20" r="1.2"/><circle cx="20" cy="60" r="1.2"/><circle cx="60" cy="60" r="1.2"/></g>
+          <g fill="currentColor">
+            <path d="M48 29C39 38 40 43 48 48C56 43 57 38 48 29Z M67 48C58 39 53 40 48 48C53 56 58 57 67 48Z M48 67C57 58 56 53 48 48C40 53 39 58 48 67Z M29 48C38 57 43 56 48 48C43 40 38 39 29 48Z" />
+            <path d="M0 35L5 40L0 45 M96 35L91 40L96 45 M35 0L40 5L45 0 M35 96L40 91L45 96" />
+            <circle cx="24" cy="24" r="2"/><circle cx="72" cy="24" r="2"/><circle cx="24" cy="72" r="2"/><circle cx="72" cy="72" r="2"/>
+          </g>
         </pattern>
       </defs>
       <rect width="100%" height="100%" fill={`url(#${id})`} />

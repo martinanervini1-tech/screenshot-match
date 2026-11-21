@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { caseGuests, followUps, metrics, money, statusCounts, weeks, type CaseGuest, type CaseStatus } from "@/lib/night-desk/presentation-data";
 
 function Section({ id, children, className = "" }: { id: string; children: React.ReactNode; className?: string }) {
@@ -55,7 +56,7 @@ export function InquiriesPresentation() {
 }
 function WeeklyChart({ field, title, positive = false }: { field: "calls" | "bookings" | "revenue"; title: string; positive?: boolean }) {
   const max = Math.max(...weeks.map((w) => w[field]));
-  return <div className={`presentation-weekly-chart ${positive ? "is-positive" : ""}`}><h3>{title}</h3><div className="presentation-bars" role="img" aria-label={`${title}: ${weeks.map((week) => `${week.week} ${field === "revenue" ? money(week[field]) : week[field]}`).join(", ")}`}>{weeks.map((week) => <div className="presentation-bar-column" key={week.week} title={`${week.week} · ${title}: ${field === "revenue" ? money(week[field]) : week[field]}`}><strong>{field === "revenue" ? money(week[field]) : week[field]}</strong><div className="presentation-bar-space"><div className="presentation-bar" style={{ height: `${week[field] / max * 100}%` }} /></div><span>{week.week}</span></div>)}</div></div>;
+  return <div className={`presentation-weekly-chart ${positive ? "is-positive" : ""}`}><h3>{title}</h3><TooltipProvider delayDuration={100}><div className="presentation-bars" role="group" aria-label={`${title} by week`}>{weeks.map((week) => <Tooltip key={week.week}><TooltipTrigger asChild><div className="presentation-bar-column" tabIndex={0} role="img" aria-label={`${week.week} · ${title}: ${field === "revenue" ? money(week[field]) : week[field]}`}><strong>{field === "revenue" ? money(week[field]) : week[field]}</strong><div className="presentation-bar-space"><div className="presentation-bar" style={{ height: `${week[field] / max * 100}%` }} /></div><span>{week.week}</span></div></TooltipTrigger><TooltipContent className="presentation-chart-tooltip" side="top"><span>{week.week} · {title}</span><strong>{field === "revenue" ? money(week[field]) : week[field]}</strong></TooltipContent></Tooltip>)}</div></TooltipProvider></div>;
 }
 export function AnalyticsPresentation() {
   return <><Section id="weekly-trend"><div className="presentation-section-heading"><h2>Weekly trend</h2><p>Last 30 days</p></div><div className="presentation-chart-grid"><WeeklyChart field="calls" title="Calls"/><WeeklyChart field="bookings" title="Bookings" positive/><WeeklyChart field="revenue" title="Revenue" positive/></div>

@@ -22,3 +22,9 @@
 ## Revised Lisbon color system
 - [x] Replace green-led styling with azulejo blue and warm sunset neutrals
 - [x] Verify unchanged navigation, filters and desktop/mobile layouts
+
+## Tile-inspired interactive redesign
+- [x] Audit Tile's live visual and interaction language
+- [x] Expressive palette, asymmetric linked KPIs and reusable animated buttons
+- [x] Azulejo panel reveal, navigation and consistent chart/filter states
+- [x] Accessibility, responsive layouts and functional regression checks

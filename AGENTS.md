@@ -38,3 +38,4 @@ use the editor.
 - Keep the fixed read-only presentation fixture separate from operational pricing and Cloud records; presentation quotes must never change intake calculations or guest data.
 - Mount the presentation shell in the root around the four leaf views so shared KPIs, navigation and reporting period remain stationary during view changes; use TanStack links and Framer Motion instead of Next.js-only sidebar imports.
 - Define shared visual roles and interaction states in global CSS and Button variants; reuse TilePattern for decorative panel layers with solid readable content, keeping visual refinements independent of data and access logic.
+- Keep KPI navigation as real TanStack links using the shared Button variant, and chart tooltips keyboard-focusable; this adds presentation interaction without modifying records or calculations.
